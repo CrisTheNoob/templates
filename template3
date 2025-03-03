@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            height: 100vh;
+            background: #ffffff;
+            border-right: 1px solid #e1e1e1;
+            padding: 20px;
+        }
+        .sidebar .nav-link {
+            color: #555;
+        }
+        .sidebar .nav-link:hover {
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .card {
+            border: none;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        }
+        .chart-container {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar p-3">
+        <h4 class="text-primary fw-bold">FinManage</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#"><i class="fas fa-home"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-file-invoice"></i> Invoice</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-chart-line"></i> Analytics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-cog"></i> Settings</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content container-fluid">
+        <!-- Top Bar -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Hello, Siam! <span class="text-muted">Welcome back</span></h4>
+            <input type="text" class="form-control w-25" placeholder="Search a transaction">
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card p-3">
+                    <h6>Current Balance</h6>
+                    <h3>$2,360.00</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3">
+                    <h6>Total Income</h6>
+                    <h3>$2,360.00</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3">
+                    <h6>Total Profit</h6>
+                    <h3>$2,360.00</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3">
+                    <h6>Total Expenses</h6>
+                    <h3>$2,360.00</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts & Statistics -->
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <div class="card p-3">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest Transactions -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card p-3">
+                    <h5>Latest Transactions</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Net Bill</td>
+                                <td>Technology</td>
+                                <td class="text-danger">- $194.00</td>
+                            </tr>
+                            <tr>
+                                <td>E-commerce</td>
+                                <td>Mobile Connection</td>
+                                <td class="text-danger">- $500.00</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Connection</td>
+                                <td>Technology</td>
+                                <td class="text-danger">- $96.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Line Chart
+    var ctx = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            datasets: [
+                {
+                    label: 'Income',
+                    data: [2000, 2500, 2700, 3000, 4000, 5000, 4900, 4500, 4700, 4800],
+                    borderColor: 'blue',
+                    fill: false
+                },
+                {
+                    label: 'Expenses',
+                    data: [1800, 2100, 2500, 2700, 3100, 3300, 3500, 3600, 3900, 4000],
+                    borderColor: 'red',
+                    fill: false
+                }
+            ]
+        }
+    });
+
+    // Pie Chart
+    var pieCtx = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Savings', 'Expenses', 'Investments'],
+            datasets: [{
+                data: [40, 35, 25],
+                backgroundColor: ['blue', 'red', 'purple']
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>
